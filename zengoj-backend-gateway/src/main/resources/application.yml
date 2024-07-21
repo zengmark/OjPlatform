@@ -1,0 +1,27 @@
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+    gateway:
+      routes:
+        - id: zengoj-backend-user-service
+          uri: lb://zengoj-backend-user-service
+          predicates:
+            - Path=/api/user/**
+        - id: zengoj-backend-question-service
+          uri: lb://zengoj-backend-question-service
+          predicates:
+            - Path=/api/question/**
+        - id: zengoj-backend-judge-service
+          uri: lb://zengoj-backend-judge-service
+          predicates:
+            - Path=/api/judge/**
+  application:
+    name: zengoj-backend-gateway
+  main:
+    web-application-type: reactive
+server:
+  port: 8105
